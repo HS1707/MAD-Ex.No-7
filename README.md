@@ -53,7 +53,6 @@ activity_main.xml:
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
@@ -77,8 +76,7 @@ mylist.xml:
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053"
-        android:contentDescription="@string/todo" />
+        app:layout_constraintVertical_bias="0.053" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -113,7 +111,6 @@ MyListAdapter.java:
 ```
 package com.example.listview;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,9 +132,9 @@ public class MyListAdapter extends ArrayAdapter<String> {
         this.maintitle=maintitle;
         this.imgid=imgid;
     }
-    public View getView(int position,View view,ViewGroup parent) {
+    public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
-        @SuppressLint({"ViewHolder", "InflateParams"}) View rowView=inflater.inflate(R.layout.mylist, null,true);
+        View rowView=inflater.inflate(R.layout.mylist, null,true);
 
         TextView titleText = (TextView) rowView.findViewById(R.id.title);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
@@ -147,6 +144,7 @@ public class MyListAdapter extends ArrayAdapter<String> {
         return rowView;
     };
 }
+
 ```
 MainActivity.java:
 
@@ -154,67 +152,81 @@ MainActivity.java:
 package com.example.listview;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     ListView list;
     String[] maintitle ={
-            "FRANCE","GERMANY",
-            "JAPAN", "UK"
+            "AMERICA","AUSTRALIA",
+            "INDIA","GERMANY",
+            "RUSSIA","SPAIN",
+            "TURKEY","UK"
     };
-    Integer[] imgid={
+    Integer[] imgid= new Integer[]{
+            R.drawable.america, R.drawable.australia,
+            R.drawable.india, R.drawable.germany,
+            R.drawable.russia, R.drawable.spain,
+            R.drawable.turkey, R.drawable.uk
+    };
 
-            R.drawable.img_2,R.drawable.img_4,
-            R.drawable.img_6, R.drawable.img_8
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyListAdapter adapter=new MyListAdapter(this, maintitle,imgid);
-        list=(ListView)findViewById(R.id.list);
+        MyListAdapter adapter = new MyListAdapter(this, maintitle, imgid);
+        list = findViewById(R.id.list);
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO Auto-generated method stub
                 if(position == 0) {
-                    //code specific to first list item
-                    Toast.makeText(getApplicationContext(),"Place Your First Option Code",Toast.LENGTH_SHORT).show();
-                }
-                else if(position == 1) {
-                    //code specific to 2nd list item
-                    Toast.makeText(getApplicationContext(),"Place Your Second Option Code",Toast.LENGTH_SHORT).show();
-                }
-                else if(position == 2) {
-
-                    Toast.makeText(getApplicationContext(),"Place Your Third Option Code",Toast.LENGTH_SHORT).show();
-                }
-                else if(position == 3) {
-
-                    Toast.makeText(getApplicationContext(),"Place Your Forth Option Code",Toast.LENGTH_SHORT).show();
-                }
-                else if(position == 4) {
-
-                    Toast.makeText(getApplicationContext(),"Place Your Fifth Option Code",Toast.LENGTH_SHORT).show();
+                    // code specific to first list item
+                    Toast.makeText(getApplicationContext(),"Welcome to America",Toast.LENGTH_SHORT).show();
+                } else if(position == 1) {
+                    // code specific to the second list item
+                    Toast.makeText(getApplicationContext(),"Welcome to Australia",Toast.LENGTH_SHORT).show();
+                } else if(position == 2) {
+                    Toast.makeText(getApplicationContext(),"Welcome to India",Toast.LENGTH_SHORT).show();
+                } else if(position == 3) {
+                    Toast.makeText(getApplicationContext(),"Welcome to Germany",Toast.LENGTH_SHORT).show();
+                } else if(position == 4) {
+                    Toast.makeText(getApplicationContext(),"Welcome to Russia",Toast.LENGTH_SHORT).show();
+                } else if(position == 5) {
+                    Toast.makeText(getApplicationContext(),"Welcome to Spain",Toast.LENGTH_SHORT).show();
+                } else if(position == 6) {
+                    Toast.makeText(getApplicationContext(),"Welcome to Turkey",Toast.LENGTH_SHORT).show();
+                } else if(position == 7) {
+                    Toast.makeText(getApplicationContext(),"Welcome to UK",Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 }
+
 ```
 
 ## OUTPUT
 
+![image](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/fa94bd56-be41-49ff-b3e5-58b5eeded988)
 
+![image](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/0e18fb3b-2d0a-4f2d-beab-33902b6e855a)
+
+![image](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/e1b5c3da-4cfc-40dd-9aa1-6f651cb53038)
+
+![image](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/cad35478-0573-41de-a9e6-4d6f05670024)
+
+![WhatsApp Image 2023-05-27 at 14 22 51](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/c70622be-2398-42c3-b036-8dc9c71a7040)
 
 
 ## RESULT
+
 Thus a Simple Android Application to create and develop the application to display the place name with image using list view in android studio is developed and executed successfully.
