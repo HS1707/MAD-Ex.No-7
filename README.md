@@ -1,4 +1,5 @@
 
+
 # Ex.No:7 Develop an android application to display the place name with image using list view in android studio.
 
 
@@ -30,15 +31,14 @@ Step 7: Save and run the application.
 ```
 /*
 Program to print the list of item.
-Developed by: HARIHARAN S 
-Registeration Number :  212221220016
+Developed by: HARIHARAN S
+Registeration Number : 212221220016
 */
 ```
-activity_main.xml:
+**Activity_xml File:**
 
-```
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -53,14 +53,12 @@ activity_main.xml:
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-```
-
-mylist.xml:
-
-```
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+**MyList.xml File:**
+    
+    <?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -94,7 +92,7 @@ mylist.xml:
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:padding="2dp"
             android:text="Medium Text"
@@ -103,23 +101,99 @@ mylist.xml:
             android:textStyle="bold" />
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
-```
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-MyListAdapter.java:
+**MainActitvity.java File:**
 
-```
-package com.example.listview;
+    package com.example.place_names;
 
-import android.app.Activity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+    import androidx.appcompat.app.AppCompatActivity;
 
-public class MyListAdapter extends ArrayAdapter<String> {
+    import android.os.Bundle;
+    import android.view.View;
+    import android.widget.AdapterView;
+    import android.widget.ListView;
+    import android.widget.TextView;
+    import android.widget.Toast;
+
+    public class MainActivity extends AppCompatActivity {
+    ListView list;
+    String[] maintitle ={
+            "AMERICA","AUSTRALIA",
+            "INDIA","GERMANY",
+            "RUSSIA","SPAIN",
+            "TURKEY","UK"
+    };
+    Integer[] imgid= new Integer[]{
+            R.drawable.america1, R.drawable.australia1,
+            R.drawable.india1, R.drawable.germany1,
+            R.drawable.russia1, R.drawable.spain1,
+            R.drawable.turkey1, R.drawable.uk1
+    };
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        MyListAdapter adapter=new MyListAdapter(this, maintitle,imgid);
+        list= (ListView) findViewById(R.id.list);
+        list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO Auto-generated method stub
+                if(position == 0) {
+                    //code specific to first list item
+                    Toast.makeText(getApplicationContext(),"Welcome to America",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 1) {
+                    //code specific to 2nd list item
+                    Toast.makeText(getApplicationContext(),"Welcome to Australia",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 2) {
+
+                    Toast.makeText(getApplicationContext(),"Welcome to India",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 3) {
+
+                    Toast.makeText(getApplicationContext(),"Welcome to Germany",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 4) {
+
+                    Toast.makeText(getApplicationContext(),"Welcome to Russia",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 5) {
+
+                    Toast.makeText(getApplicationContext(),"Welcome to Spain",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 6) {
+
+                    Toast.makeText(getApplicationContext(),"Welcome to Turkey",Toast.LENGTH_SHORT).show();
+                }
+                else if(position == 7) {
+
+                    Toast.makeText(getApplicationContext(),"Welcome to UK",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    }
+
+**MyListAdapter.java:**
+
+    package com.example.place_names;
+
+    import android.app.Activity;
+    import android.view.LayoutInflater;
+    import android.view.View;
+    import android.view.ViewGroup;
+    import android.widget.ArrayAdapter;
+    import android.widget.ImageView;
+    import android.widget.TextView;
+
+    public class MyListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] maintitle;
@@ -143,90 +217,12 @@ public class MyListAdapter extends ArrayAdapter<String> {
         imageView.setImageResource(imgid[position]);
         return rowView;
     };
-}
-
-```
-MainActivity.java:
-
-```
-package com.example.listview;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-public class MainActivity extends AppCompatActivity {
-    ListView list;
-    String[] maintitle ={
-            "AMERICA","AUSTRALIA",
-            "INDIA","GERMANY",
-            "RUSSIA","SPAIN",
-            "TURKEY","UK"
-    };
-    Integer[] imgid= new Integer[]{
-            R.drawable.america, R.drawable.australia,
-            R.drawable.india, R.drawable.germany,
-            R.drawable.russia, R.drawable.spain,
-            R.drawable.turkey, R.drawable.uk
-    };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        MyListAdapter adapter = new MyListAdapter(this, maintitle, imgid);
-        list = findViewById(R.id.list);
-        list.setAdapter(adapter);
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO Auto-generated method stub
-                if(position == 0) {
-                    // code specific to first list item
-                    Toast.makeText(getApplicationContext(),"Welcome to America",Toast.LENGTH_SHORT).show();
-                } else if(position == 1) {
-                    // code specific to the second list item
-                    Toast.makeText(getApplicationContext(),"Welcome to Australia",Toast.LENGTH_SHORT).show();
-                } else if(position == 2) {
-                    Toast.makeText(getApplicationContext(),"Welcome to India",Toast.LENGTH_SHORT).show();
-                } else if(position == 3) {
-                    Toast.makeText(getApplicationContext(),"Welcome to Germany",Toast.LENGTH_SHORT).show();
-                } else if(position == 4) {
-                    Toast.makeText(getApplicationContext(),"Welcome to Russia",Toast.LENGTH_SHORT).show();
-                } else if(position == 5) {
-                    Toast.makeText(getApplicationContext(),"Welcome to Spain",Toast.LENGTH_SHORT).show();
-                } else if(position == 6) {
-                    Toast.makeText(getApplicationContext(),"Welcome to Turkey",Toast.LENGTH_SHORT).show();
-                } else if(position == 7) {
-                    Toast.makeText(getApplicationContext(),"Welcome to UK",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
-}
 
-```
+## OUTPUT:
+   
+![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/d8bab5ec-6fad-4027-8cbe-2dd8fe761b86)  
+![image](https://github.com/NaveenKumar-008/Mobile-Application-Development/assets/128135244/f1e5827f-c4ce-4fed-bdd9-dbe8e676bcac)  
 
-## OUTPUT
-
-![image](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/fa94bd56-be41-49ff-b3e5-58b5eeded988)
-
-![image](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/0e18fb3b-2d0a-4f2d-beab-33902b6e855a)
-
-![image](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/e1b5c3da-4cfc-40dd-9aa1-6f651cb53038)
-
-![image](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/cad35478-0573-41de-a9e6-4d6f05670024)
-
-![WhatsApp Image 2023-05-27 at 14 22 51](https://github.com/kannan0071/MAD-Ex.No-7/assets/119641638/c70622be-2398-42c3-b036-8dc9c71a7040)
-
-
-## RESULT
-
+## RESULT:
 Thus a Simple Android Application to create and develop the application to display the place name with image using list view in android studio is developed and executed successfully.
